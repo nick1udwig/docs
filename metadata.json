@@ -1,0 +1,18 @@
+{
+    "name": "docs",
+    "description": "the kinode book, served from your kinode",
+    "image": "https://raw.githubusercontent.com/nick1udwig/docs/master/assets/docs125.png",
+    "properties": {
+        "package_name": "docs",
+        "current_version": "0.1.0",
+        "publisher": "nick.kino",
+        "mirrors": ["nickludwig.os", "nick1udwig.os", "diligence.os"],
+        "code_hashes": {
+            "0.1.0": "2660bfa1b9b770817d3ccc58f07ee4b31dbed97743e6cfdfde314b023c5cf410"
+        },
+        "wit_version": 0,
+        "dependencies": []
+    },
+    "external_url": "https://github.com/nick1udwig/docs",
+    "animation_url": ""
+}
