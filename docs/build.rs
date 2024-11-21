@@ -7,6 +7,8 @@ use std::{
 use flate2::read::GzDecoder;
 use tar::Archive;
 
+const EXPECTED_BOOK_TAR_GZ: &str = "book.tar.gz";
+
 macro_rules! p {
     ($($tokens: tt)*) => {
         println!("cargo:warning={}", format!($($tokens)*))
@@ -51,9 +53,16 @@ fn get_kinode_book(cwd: &Path) -> anyhow::Result<()> {
                 "most recent kinode-book release has no assets"
             ));
         }
+        let maybe_book_tar_index = release.assets.iter().position(|item| item.name == EXPECTED_BOOK_TAR_GZ);
+        let book_name = if let Some(book_tar_index) = maybe_book_tar_index {
+            release.assets[book_tar_index].name.clone()
+        } else {
+            p!("Couldn't find {EXPECTED_BOOK_TAR_GZ} in release assets; YOLOing...");
+            EXPECTED_BOOK_TAR_GZ.to_string()
+        };
         let release_url = format!(
-            "https://github.com/kinode-dao/kinode-book/releases/download/{}/{}",
-            release.tag_name, release.assets[0].name,
+            "https://github.com/kinode-dao/kinode-book/releases/download/{}/{book_name}",
+            release.tag_name
         );
         fs::create_dir_all(&book_dir)?;
         let book_tar_path = book_dir.join("book.tar.gz");
