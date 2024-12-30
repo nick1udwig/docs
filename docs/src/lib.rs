@@ -4,7 +4,7 @@ use kinode_process_lib::{
 
 wit_bindgen::generate!({
     path: "target/wit",
-    world: "process-v0",
+    world: "process-v1",
 });
 
 const ICON: &str = include_str!("icon");
@@ -26,7 +26,7 @@ fn init(our: Address) {
             Err(send_error) => println!("got SendError: {send_error}"),
             Ok(ref message) => {
                 // handle http requests
-                // no need to validate source since capabilities limit to vfs/http_server
+                // no need to validate source since capabilities limit to vfs/http-server
                 let Ok(request) = server.parse_request(message.body()) else {
                     continue;
                 };
